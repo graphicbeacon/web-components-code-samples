@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shadow DOM</title>
+</head>
+<body>
+    
+    <div id="host">
+	<p>Lyrics by Louis Armstrong</p>
+        <h1>What a wonderful world.</h1>
+    </div>
+    
+    <script>
+        // Create shadow root
+        var host = document.querySelector("#host"),
+            root = host.createShadowRoot();
+
+        // Populate shadow root
+        root.innerHTML = '<style>h1, ::content h1 {color: green;}</style>' +
+			 '<content select="p"></content>' + 
+                         '<h1>And I think to myself,</h1>' +
+			 '<content select="h1"></content>';
+    </script>
+</body>
+</html>

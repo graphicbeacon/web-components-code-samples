@@ -1,0 +1,28 @@
+{
+  "name": "web-components-code-samples",
+  "version": "0.0.0",
+  "authors": [
+    "Jermaine Oppong <jeropp00@gmail.com>"
+  ],
+  "description": "Sample code for a Web Components brown bag talk",
+  "keywords": [
+    "webcomponents",
+    "html templates",
+    "custom elements",
+    "shadow dom",
+    "html imports"
+  ],
+  "license": "MIT",
+  "homepage": "http://github.com/graphicbeacon",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "webcomponentsjs": "~0.5.2"
+  }
+}

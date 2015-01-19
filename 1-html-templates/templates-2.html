@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Templates</title>
+</head>
+<body>
+    <template>
+        <h1></h1>
+        <h2></h2>
+        <img src="" alt="Placeholder Image">
+    </template>
+    
+    <div id="content"></div>
+    
+    <script>
+        // Template
+        var template = document.querySelector('template');
+
+        // Data source
+        var data = [{
+            name: 'Bob',
+            age: 24,
+            avatar: 'city'
+        }, {
+            name: 'Tom',
+            age: 25,
+            avatar: 'nature'
+        }, {
+            name: 'Mary',
+            age: 26,
+            avatar: 'cats'
+        }];
+
+        // Act
+        data.forEach(function(person) {
+            
+            var clone = template.content.cloneNode(true);
+                clone.querySelector('h1').innerHTML = person.name;
+                clone.querySelector('h2').textContent = 'aged ' + person.age;
+                clone.querySelector('img').src = 'http://lorempixel.com/200/200/' + person.avatar;
+
+                document.querySelector('#content').appendChild(clone);
+        });
+
+    </script>
+</body>
+</html>

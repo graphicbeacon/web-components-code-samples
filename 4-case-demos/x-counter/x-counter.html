@@ -1,0 +1,114 @@
+<template>
+    <style type="text/css">
+	:host {
+	    background: white;
+	    border: 1px solid #ccc;
+	    border-radius: 5px;
+	    display: inline-block;
+	    font-family: 'Lato', sans-serif;
+	    min-width: 200px;
+	}
+	
+	:host, * {    
+	    box-sizing: border-box;
+	}
+	
+	.counter {
+	    display: flex;
+	    flex-direction: column;
+	    font-size: 42px;
+	    height: 100px;
+	    line-height: 1.5;
+	    text-align: center;
+	}
+
+	.counter-header {
+	    height: 66%;
+	}
+
+	.counter-buttons {
+	    display: flex;
+	    flex-direction: row;
+	    height: 34%;
+	}
+
+	.counter-buttons button {
+	    -webkit-appearance: none;
+	    appearance: none;
+	    background: #f1f1f1;
+	    border: 0 none;
+	    border-top: 1px solid #ccc;
+	    color: #656;
+	    cursor: pointer;
+	    font-size: 24px;
+	    width: 50%;
+	}
+
+	.counter-buttons button:focus {
+	    outline: 0 none;
+	}
+
+	.counter-buttons button:active {
+	    background-color: #e9e9e9;
+	}
+
+	.counter-minus-button {
+	    border-bottom-left-radius: 5px;
+	}
+	
+	.counter-plus-button {
+	    box-shadow: 1px 0 0 #ccc inset;
+	    border-bottom-right-radius: 5px;
+	}
+    </style>
+    <div class="counter">
+	<div class="counter-header">0</div>
+	<div class="counter-buttons">
+	    <button class="counter-minus-button">-</button>
+	    <button class="counter-plus-button">+</button>
+	</div>
+    </div>
+</template>
+
+<script type="text/javascript">
+    
+    var doc = document.currentScript.ownerDocument;
+    var templContent = doc.querySelector('template').content;
+
+    var XCounterElement = Object.create(HTMLElement.prototype);
+
+    XCounterElement.createdCallback = function() {
+	// Create Shadow root
+	var root = this.createShadowRoot();
+
+	// Clone and append template to shadow root
+	root.appendChild(templContent.cloneNode(true));
+
+	// Set initial count attribute value
+	this.count = 0;
+    };
+
+    XCounterElement.attachedCallback = function() {
+
+	// Attach event handlers to buttons
+	this.shadowRoot.querySelector('.counter-plus-button')
+	    .addEventListener('click', this.increment.bind(this));
+
+	this.shadowRoot.querySelector('.counter-minus-button')
+	    .addEventListener('click', this.decrement.bind(this));
+    };
+
+    XCounterElement.increment = function() {
+	var count = ++this.count;
+	this.shadowRoot.querySelector('.counter-header').textContent = count;
+    };
+
+    XCounterElement.decrement = function() {
+	var count = --this.count;
+	this.shadowRoot.querySelector('.counter-header').textContent = count;
+    };
+
+    document.registerElement('x-counter', {
+	prototype: XCounterElement
+    });
+</script>

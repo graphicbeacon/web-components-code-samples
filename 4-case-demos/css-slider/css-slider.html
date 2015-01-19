@@ -1,0 +1,92 @@
+<template id="css-slider-template">
+	<style>
+		#css-slider-window {
+		    height: 200px;
+		    overflow: hidden;
+		    width: 200px;    
+		}
+
+		#css-slider-window-content {
+		    display: flex;
+		    flex-direction: row;
+		    position: relative;
+		    width: 300%;
+
+		    -webkit-transition: margin-left linear 0.25s;
+		    transition: margin-left linear 0.25s;
+		}
+
+		[name="css-slider-toggle"] {
+		    display: none;
+		}
+
+		#toggle1:checked ~ #css-slider-window #css-slider-window-content {
+		    margin-left: 0;
+		}
+
+		#toggle2:checked ~ #css-slider-window #css-slider-window-content {
+		    margin-left: -100%;
+		}
+
+		#toggle3:checked ~ #css-slider-window #css-slider-window-content {
+		    margin-left: -200%;
+		}
+
+		#css-slider-tabs {
+		    text-align: center;
+		}
+		
+		#css-slider-tabs label {
+			background-color: blue;
+			display: inline-block;
+			height: 20px;
+			width: 20px;
+		}
+
+		#toggle1:checked ~ #css-slider-tabs label:nth-child(1),
+		#toggle2:checked ~ #css-slider-tabs label:nth-child(2),
+		#toggle3:checked ~ #css-slider-tabs label:nth-child(3) {
+			background-color: red;
+		}
+	</style>
+	<div id="css-slider">
+		<input type="radio" id="toggle1" name="css-slider-toggle" checked>
+		<input type="radio" id="toggle2" name="css-slider-toggle" >
+		<input type="radio" id="toggle3" name="css-slider-toggle" >
+
+		<div id="css-slider-window">
+		    <div id="css-slider-window-content">
+			<content></content>
+		    </div>
+		</div>
+
+		<div id="css-slider-tabs">
+			<label for="toggle1"></label>
+			<label for="toggle2"></label>
+			<label for="toggle3"></label>
+		</div>
+	</div>
+</template>
+
+<script>
+    // var currentScript = (typeof document._currentScript !== 'undefined') ? document._currentScript : document.currentScript;
+    // var cssSliderTemplate = currentScript.ownerDocument.querySelector('#css-slider-template');
+
+	var cssSliderTemplate = document.querySelector('[rel="import"]')
+					.import
+					.querySelector('#css-slider-template');
+	
+	var CssSliderProto = Object.create(HTMLElement.prototype);
+
+	CssSliderProto.createdCallback = function() {
+
+		var clone = cssSliderTemplate.content.cloneNode(true);
+
+		var root = this.createShadowRoot();
+		root.appendChild(clone);
+	};
+
+	document.registerElement('css-slider', {
+		prototype: CssSliderProto
+	});
+</script>

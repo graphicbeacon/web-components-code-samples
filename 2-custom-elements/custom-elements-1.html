@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Elements</title>
+</head>
+<body>
+
+    <script>
+        var counterProto = Object.create(HTMLElement.prototype);
+
+            counterProto.createdCallback = function() {
+                this.innerHTML = 'hello, I am an &lt;x-counter&gt; element';
+                console.log('Element created');
+            };
+
+            counterProto.attachedCallback = function() {
+                console.log('Element attached');
+            };
+
+            counterProto.detachedCallback = function() {
+                console.log('Element removed from dom');
+            };
+
+            counterProto.attributeChangedCallback = function(attributeName, oldValue, newValue) {
+                console.log('Element attribute',attributeName,'changed from',oldValue,'to',newValue);
+            };
+
+        var xCounter = document.registerElement('x-counter', {
+            prototype: counterProto
+        });
+
+        document.body.appendChild(new xCounter());
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Elements</title>
+</head>
+<body>
+
+    <script>
+
+        var xCounterProto = Object.create(HTMLButtonElement.prototype);
+
+        xCounterProto.createdCallback = function() {
+            this.count = 0;
+            this.innerHTML = 'Increment <span>' + this.count + '</span>';
+        };
+
+        xCounterProto.attachedCallback = function() {
+            this.addEventListener('click', this.increment);
+        };
+
+        xCounterProto.increment = function() {
+            this.count++;
+            this.querySelector('span').textContent = this.count;
+        };
+
+        var xCounter = document.registerElement('x-counter', {
+            prototype: xCounterProto,
+            extends: 'button'
+        });
+
+	document.body.insertBefore(new xCounter(), document.body.firstChild);
+    </script>
+
+</body>
+</html>
