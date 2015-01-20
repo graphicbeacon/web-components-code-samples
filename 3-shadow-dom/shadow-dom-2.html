@@ -5,18 +5,19 @@
     <title>Shadow DOM</title>
 </head>
 <body>
-    
+    <!-- Our shadow host -->
     <div id="host">
 	<p>Lyrics by Louis Armstrong</p>
         <h1>What a wonderful world.</h1>
     </div>
     
     <script>
-        // Create shadow root
-        var host = document.querySelector("#host"),
+        // Select and create shadow root
+	var host = document.querySelector("#host"),
             root = host.createShadowRoot();
 
-        // Populate shadow root
+        // Populate shadow root 
+	// with <content> distribution points
         root.innerHTML = '<style>h1, ::content h1 {color: green;}</style>' +
 			 '<content select="p"></content>' + 
                          '<h1>And I think to myself,</h1>' +

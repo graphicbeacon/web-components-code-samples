@@ -5,6 +5,8 @@
     <title>HTML Templates</title>
 </head>
 <body>
+
+    <!-- Declared template with contents -->
     <template>
         <h1></h1>
         <h2></h2>
@@ -32,15 +34,17 @@
             avatar: 'cats'
         }];
 
-        // Act
+        // Action
         data.forEach(function(person) {
             
+	    // Create clone to map to each view model
             var clone = template.content.cloneNode(true);
                 clone.querySelector('h1').innerHTML = person.name;
                 clone.querySelector('h2').textContent = 'aged ' + person.age;
                 clone.querySelector('img').src = 'http://lorempixel.com/200/200/' + person.avatar;
 
-                document.querySelector('#content').appendChild(clone);
+	    // Activate by appending to #content
+            document.querySelector('#content').appendChild(clone);
         });
 
     </script>

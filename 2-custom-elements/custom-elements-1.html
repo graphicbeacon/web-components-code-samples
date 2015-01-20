@@ -7,29 +7,34 @@
 <body>
 
     <script>
+	// Extend HTML prototype
         var counterProto = Object.create(HTMLElement.prototype);
+	    
+	// Declare lifecycle callbacks
+	counterProto.createdCallback = function() {
+	    this.innerHTML = 'hello, I am an &lt;x-counter&gt; element';
+	    console.log('Element created');
+	};
 
-            counterProto.createdCallback = function() {
-                this.innerHTML = 'hello, I am an &lt;x-counter&gt; element';
-                console.log('Element created');
-            };
+	counterProto.attachedCallback = function() {
+	    console.log('Element attached');
+	};
 
-            counterProto.attachedCallback = function() {
-                console.log('Element attached');
-            };
+	counterProto.detachedCallback = function() {
+	    console.log('Element removed from dom');
+	};
 
-            counterProto.detachedCallback = function() {
-                console.log('Element removed from dom');
-            };
-
-            counterProto.attributeChangedCallback = function(attributeName, oldValue, newValue) {
-                console.log('Element attribute',attributeName,'changed from',oldValue,'to',newValue);
-            };
-
+	counterProto.attributeChangedCallback = function(attributeName, oldValue, newValue) {
+	    console.log('Element attribute',attributeName,'changed from',oldValue,'to',newValue);
+	};
+	
+	// Register element
+	// @returns constructor
         var xCounter = document.registerElement('x-counter', {
             prototype: counterProto
         });
-
+	
+	// Inserted into body
         document.body.appendChild(new xCounter());
     </script>
 

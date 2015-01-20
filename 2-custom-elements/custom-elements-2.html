@@ -7,7 +7,7 @@
 <body>
 
     <script>
-
+	// Extend HTML prototype
         var xCounterProto = Object.create(HTMLButtonElement.prototype);
 
         xCounterProto.createdCallback = function() {
@@ -18,17 +18,20 @@
         xCounterProto.attachedCallback = function() {
             this.addEventListener('click', this.increment);
         };
-
+	
+	// Custom defined method
         xCounterProto.increment = function() {
             this.count++;
             this.querySelector('span').textContent = this.count;
         };
-
+	
+	// Register Element setting 'extends' property to html element to extend
         var xCounter = document.registerElement('x-counter', {
             prototype: xCounterProto,
             extends: 'button'
         });
-
+	
+	// Insert new element as first child of body
 	document.body.insertBefore(new xCounter(), document.body.firstChild);
     </script>
 

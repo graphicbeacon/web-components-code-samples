@@ -5,13 +5,13 @@
     <title>Shadow DOM</title>
 </head>
 <body>
-
+    <!-- Our shadow host -->
     <div id="host">
         <h1>What a wonderful world.</h1>
     </div>
 
     <script>
-        // Create shadow root
+        // Select and create shadow root
         var host = document.querySelector('#host'),
             root = host.createShadowRoot();
 
